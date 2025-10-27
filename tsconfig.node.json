@@ -16,7 +16,9 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/shared/components/*"],
+      "@/icons/*": ["./src/shared/icons/*"]
     },
 
     /* Linting */

@@ -7,10 +7,15 @@ import {
   SignUpFxParams,
   SignUpFxResult,
 } from "./types";
-import { CookieUtils } from "@/utils/cookie";
+import { CookieUtils } from "@/shared/utils/cookie";
 import { notificationModel } from "@/entities/notifications";
 
-// run this in init()
+export const setTokensFromCookies = createEffect(
+  (params: { access: string; refresh: string }) => {
+    CookieUtils.saveTokenCookies(params);
+  }
+);
+
 export const getTokensFromCookies = createEffect(() => {
   const { access, refresh } = CookieUtils.getTokensFromCookies();
 
@@ -38,7 +43,7 @@ const $lastUsedSignUpCredentials = createStore<SignUpFxParams | null>(null).on(
 export const loginFx = createEffect<LoginFxParams, LoginFxResult>(
   async ({ email, password }) => {
     const { data } = await AuthApi.login({ email, password });
-    return data.result;
+    return data;
   }
 );
 
@@ -52,12 +57,12 @@ export const signOutFx = createEffect(async () => {
 });
 
 export const $accessToken = createStore<string | null>(null)
-  .on(loginFx.doneData, (_, data) => data.access)
+  .on(loginFx.doneData, (_, data) => data.access_token)
   .on(getTokensFromCookies.doneData, (_, { access }) => access)
   .reset(signOutFx.done);
 
 export const $refreshToken = createStore<string | null>(null)
-  .on(loginFx.doneData, (_, data) => data.refresh)
+  .on(loginFx.doneData, (_, data) => data.refresh_token)
   .on(getTokensFromCookies.doneData, (_, { refresh }) => refresh)
   .reset(signOutFx.done);
 
@@ -81,13 +86,19 @@ sample({
 });
 
 sample({
+  source: $authTokens,
+  filter: ({ access, refresh }) => !!access && !!refresh,
+  fn: ({ access, refresh }) => ({ access: access!, refresh: refresh! }),
+  target: setTokensFromCookies,
+});
+
+sample({
   clock: getTokensFromCookies.doneData,
   filter: ({ access, refresh }) => !access && !!refresh,
   target: refreshFx,
 });
 
 split({
-  // @ts-expect-error -> Types not loaded somehow (effector's fault)
   source: signUpFx.failData,
   match: {
     USER_ALREADY_EXISTS: (err: AxiosError) => err.status === 409,
@@ -106,7 +117,6 @@ split({
 });
 
 split({
-  // @ts-expect-error -> Types not loaded somehow (effector's fault)
   source: loginFx.failData,
   match: {
     WRONG_PASSWORD: (err: AxiosError) => err.status === 401,

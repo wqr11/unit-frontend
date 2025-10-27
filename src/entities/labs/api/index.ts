@@ -21,8 +21,12 @@ export class LabsApi {
     return data;
   }
 
-  static async create(params: CreateLabsParams) {
-    const { data } = await $httpHost.post<CreateLabsResult>("/labs", params);
+  static async create() {
+    const { data } = await $httpHost.post<CreateLabsResult>("/labs", {
+      data_input: "",
+      data_output: "",
+      comment_for_ai: "",
+    } satisfies CreateLabsParams);
     return data;
   }
 

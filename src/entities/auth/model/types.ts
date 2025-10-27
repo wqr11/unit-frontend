@@ -11,6 +11,6 @@ export type SignUpFxResult = IUser;
 export type LoginFxParams = Omit<SignUpFxParams, "name">;
 
 export type LoginFxResult = {
-  access: string;
-  refresh: string;
+  access_token: string;
+  refresh_token: string;
 };

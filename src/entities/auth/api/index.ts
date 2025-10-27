@@ -15,6 +15,7 @@ export class AuthApi {
       name,
       email,
       password,
+      is_student: false,
     });
   }
 

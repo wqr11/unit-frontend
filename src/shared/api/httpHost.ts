@@ -5,7 +5,7 @@ import { API_URL } from "../config";
 
 export const $httpHost = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
+  withCredentials: false,
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",

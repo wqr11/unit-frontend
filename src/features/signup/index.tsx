@@ -5,6 +5,7 @@ import { Input } from "@/components/fields/input";
 import { useUnit } from "effector-react";
 import { signUpModalModel } from "./model";
 import { SubmitButton } from "@/components/fields/submit";
+import { Checkbox } from "@/components/fields/checkbox";
 import { TextButton } from "@/components/text-button";
 
 export interface SignUpModalProps {
@@ -52,6 +53,7 @@ export const SignUpModal: React.FC<SignUpModalProps> = React.memo(
           onClear={() => setName("")}
           value={name}
         />
+        <Checkbox />
         <Input
           placeholder="Почта"
           onChange={setEmail}

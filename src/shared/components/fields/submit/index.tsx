@@ -1,3 +1,4 @@
+import { Typography } from "@/components/typography";
 import { SubmitButtonStyled } from "./styled";
 
 export interface SubmitButtonProps {
@@ -13,7 +14,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
 }) => {
   return (
     <SubmitButtonStyled onClick={onClick} $fullWidth={fullWidth}>
-      {children}
+      <Typography $variant="p-medium">{children}</Typography>
     </SubmitButtonStyled>
   );
 };
