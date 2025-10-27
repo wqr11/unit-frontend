@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { Router } from "@/router";
-import { ThemeProvider } from "@/providers/theme";
+import { ThemeProvider } from "@/shared/providers/theme";
 import { GlobalStyles } from "@/styles";
 import "@/styles/index.css";
 

@@ -11,7 +11,7 @@ export class AuthApi {
     email: string;
     password: string;
   }) {
-    return await $httpHost.post(`${API_URL}/auth/signup`, {
+    return await $httpHost.post(`${API_URL}/register`, {
       name,
       email,
       password,
@@ -19,7 +19,7 @@ export class AuthApi {
   }
 
   static async login({ email, password }: { email: string; password: string }) {
-    return await $httpHost.post(`${API_URL}/auth/login`, {
+    return await $httpHost.post(`${API_URL}/login`, {
       email,
       password,
     });

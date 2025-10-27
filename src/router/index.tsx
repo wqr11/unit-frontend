@@ -1,15 +1,20 @@
-import { BrowserRouter, Routes, Route } from "react-router";
-import { ChatsLayout } from "@/layouts/chats";
-import { ChatsPage } from "@/pages/chats";
+import { RootLayout } from "@/layouts/root";
+import { LabsPage } from "@/pages/labs";
+import { RouterProvider, createBrowserRouter } from "react-router";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/labs",
+        element: <LabsPage />,
+      },
+    ],
+  },
+]);
 
 export const Router = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<ChatsLayout />}>
-          <Route path="/chats" index element={<ChatsPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 };
