@@ -1,6 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { debounce } from "patronum/debounce";
-import { nanoid } from "nanoid";
 import { Notification } from "./types";
 
 export const notify = createEvent<Omit<Notification, "id">>();
@@ -8,7 +7,7 @@ export const notify = createEvent<Omit<Notification, "id">>();
 const notifyFx = createEffect<Omit<Notification, "id">, Notification>(
   (n: Omit<Notification, "id">) => {
     return {
-      id: nanoid(),
+      id: crypto.randomUUID(),
       title: n?.title,
       text: n?.text,
     };
