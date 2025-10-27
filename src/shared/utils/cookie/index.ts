@@ -11,4 +11,20 @@ export class CookieUtils {
     Cookie.remove(ACCESS_TOKEN_COOKIE);
     Cookie.remove(REFRESH_TOKEN_COOKIE);
   }
+  static saveTokenCookies({
+    access,
+    refresh,
+  }: {
+    access: string;
+    refresh: string;
+  }) {
+    Cookie.set(ACCESS_TOKEN_COOKIE, access, {
+      expires: new Date(Date.now() + 60 * 60 * 1000),
+      sameSite: "lax",
+    });
+    Cookie.set(REFRESH_TOKEN_COOKIE, refresh, {
+      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      sameSite: "lax",
+    });
+  }
 }

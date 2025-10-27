@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, keyframes } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
     * {
@@ -10,4 +10,15 @@ export const GlobalStyles = createGlobalStyle`
     body {
         overflow: hidden;
     }
+`;
+
+export const buttonClickAnimation = keyframes`
+  50% {
+    transform: translateY(1px);
+    filter: brightness(0.8);
+  }
+  100% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
 `;

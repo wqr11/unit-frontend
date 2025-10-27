@@ -1,15 +1,4 @@
-import { css, keyframes, styled } from "styled-components";
-
-const buttonClick = keyframes`
-  50% {
-    transform: translateY(1px);
-    filter: brightness(0.8);
-  }
-  100% {
-    transform: translateY(0);
-    filter: brightness(1);
-  }
-`;
+import { css, styled } from "styled-components";
 
 export interface ButtonProps {
   $disabled?: boolean;
@@ -24,12 +13,14 @@ export const Button = styled.button<ButtonProps>`
     css`
       &:hover {
         cursor: pointer;
+        outline: 2px dashed ${({ theme }) => theme.colors.grayScale.gray4};
       }
       &:active {
-        animation: ${buttonClick} 0.2s ease-out 1 forwards;
+        transform: translateY(1px);
+        outline: 2px solid ${({ theme }) => theme.colors.grayScale.gray4};
       }
     `}
-  transition: transform 0.3s ease-out, filter 0.3s ease-out;
+  transition: transform 50ms ease-out;
   user-select: none;
   -webkit-user-select: none;
 `;
