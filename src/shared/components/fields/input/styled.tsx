@@ -3,6 +3,12 @@ import { styled } from "styled-components";
 import { CloseIcon } from "@/icons/close";
 import { Button } from "@/components/button";
 
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
 export const InputStyled = styled.a.attrs({
   tabIndex: -1,
 })`

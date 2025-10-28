@@ -29,6 +29,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
               gray4: "#8d7966",
               bg: "#f8f1e9",
             },
+            semantic: {
+              success: "#22c55e",
+              successBg: "#dcfce7",
+              warning: "#eab308",
+              warningBg: "#fef9c3",
+              error: "#ef4444",
+              errorBg: "#fee2e2",
+              info: "#3b82f6",
+              infoBg: "#dbeafe",
+            },
           },
           size: {
             maxTablet: 860,
@@ -54,6 +64,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
               gray3: "#a8a39d",
               gray4: "#8d7966",
               bg: "#f8f1e9",
+            },
+            semantic: {
+              success: "#4ade80",
+              successBg: "#166534",
+              warning: "#facc15",
+              warningBg: "#854d0e",
+              error: "#f87171",
+              errorBg: "#7f1d1d",
+              info: "#60a5fa",
+              infoBg: "#1e3a8a",
             },
           },
           size: {

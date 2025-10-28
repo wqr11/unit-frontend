@@ -14,6 +14,16 @@ export type Theme = {
       gray4: string;
       bg: string;
     };
+    semantic: {
+      success: string;
+      successBg: string;
+      warning: string;
+      warningBg: string;
+      error: string;
+      errorBg: string;
+      info: string;
+      infoBg: string;
+    };
   };
   size: {
     maxTablet: number;

@@ -4,11 +4,7 @@ export type GetLabByIdResult = ILab;
 
 export type GetLabsResult = ILab[];
 
-export interface CreateLabsParams {
-  data_input: string;
-  data_output: string;
-  comment_for_ai: string;
-}
+export type CreateLabsParams = Omit<ILab, "id">;
 
 export interface CreateLabsResult extends CreateLabsParams {
   id: string;

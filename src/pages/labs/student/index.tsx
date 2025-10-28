@@ -16,7 +16,7 @@ export const StudentLabsPage = () => {
   return (
     <>
       <StudentSidebar />
-      <StudentLabWindow />
+      <StudentLabWindow lab={lab} />
     </>
   );
 };

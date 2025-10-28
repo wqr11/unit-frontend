@@ -1,7 +1,7 @@
 import { LabWindowStyled } from "../../styled";
 import { TeacherLabWindowFields, TeacherLabWindowSubmit } from "./styled";
-import { Typography } from "@/shared/components/typography";
 import { Textarea } from "@/components/fields/textarea";
+import { Input } from "@/components/fields/input";
 import { ILab } from "@/entities/labs";
 
 import * as TeacherLabWindowModel from "./model";
@@ -26,7 +26,11 @@ export const TeacherLabWindow: React.FC<TeacherLabWindowProps> = ({ lab }) => {
 
   return (
     <LabWindowStyled>
-      <Typography $variant="h3-medium">Лаба {lab.id}</Typography>
+      <Input
+        label="Имя лабораторной"
+        value={form.fields.name.value}
+        onChange={form.fields.name.onChange}
+      />
       <TeacherLabWindowFields>
         <Textarea
           label="Входные данные"
