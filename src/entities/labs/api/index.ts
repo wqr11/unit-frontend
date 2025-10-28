@@ -23,6 +23,7 @@ export class LabsApi {
 
   static async create() {
     const { data } = await $httpHost.post<CreateLabsResult>("/labs", {
+      name: "",
       data_input: "",
       data_output: "",
       comment_for_ai: "",

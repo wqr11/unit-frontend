@@ -1,17 +1,15 @@
-import { labsModel } from "@/entities/labs";
+import { ILab, labsModel } from "@/entities/labs";
 import { sample } from "effector";
 import { createForm } from "effector-forms";
 
-export interface TeacherLabWindowUpdateForm {
-  id: string;
-  data_input: string;
-  data_output: string;
-  comment_for_ai: string;
-}
+export type TeacherLabWindowUpdateForm = ILab;
 
 export const $form = createForm<TeacherLabWindowUpdateForm>({
   fields: {
     id: {
+      init: "",
+    },
+    name: {
       init: "",
     },
     data_input: {
