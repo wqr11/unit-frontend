@@ -1,7 +1,15 @@
-import { Button } from "@/components/button";
-import { Typography } from "@/components/typography";
-import { CloseIcon } from "@/icons/close";
 import { styled } from "styled-components";
+
+export const LabWindowStyled = styled.div`
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px 36px;
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.colors.base.white};
+  border: 1px solid ${({ theme }) => theme.colors.grayScale.gray1};
+`;
 
 export const SidebarStyled = styled.div`
   grid-area: sidebar;
@@ -22,30 +30,8 @@ export const SidebarItem = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.grayScale.gray1};
   border-radius: 12px;
   display: flex;
-  padding-right: 64px;
-  > * {
+  > *:first-child {
     padding: 16px 8px;
     flex: 1;
   }
-`;
-
-export const SidebarItemDeleteButton = styled(Button).attrs({
-  children: <CloseIcon width={14} height={14} />,
-  tabIndex: -1,
-})`
-  &:hover {
-    opacity: 0.6;
-  }
-`;
-
-export const SidebarAddLab = styled(Button).attrs(({ children }) => ({
-  children: <Typography $variant="p-medium">{children}</Typography>,
-}))`
-  position: sticky;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  padding: 16px;
-  margin-bottom: 16px;
 `;

@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const LabsPageStyled = styled.div`
+export const PageWithSidebarLayoutStyled = styled.div`
   grid-area: content;
   display: grid;
   gap: 34px;
