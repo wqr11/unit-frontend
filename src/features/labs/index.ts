@@ -1,2 +1,2 @@
-export * from "./sidebar";
-export * from "./window";
+export * from "./student";
+export * from "./teacher";

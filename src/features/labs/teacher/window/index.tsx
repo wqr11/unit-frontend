@@ -1,18 +1,19 @@
-import { LabWindowFields, LabWindowStyled, LabWindowSubmit } from "./styled";
+import { LabWindowStyled } from "../../styled";
+import { TeacherLabWindowFields, TeacherLabWindowSubmit } from "./styled";
 import { Typography } from "@/shared/components/typography";
 import { Textarea } from "@/components/fields/textarea";
 import { ILab } from "@/entities/labs";
 
-import * as labWindowModel from "./model";
+import * as TeacherLabWindowModel from "./model";
 import { useForm } from "effector-forms";
 import { useLayoutEffect } from "react";
 
-export interface LabWindowProps {
+export interface TeacherLabWindowProps {
   lab?: ILab;
 }
 
-export const LabWindow: React.FC<LabWindowProps> = ({ lab }) => {
-  const form = useForm(labWindowModel.$form);
+export const TeacherLabWindow: React.FC<TeacherLabWindowProps> = ({ lab }) => {
+  const form = useForm(TeacherLabWindowModel.$form);
 
   useLayoutEffect(() => {
     if (!lab) {
@@ -26,7 +27,7 @@ export const LabWindow: React.FC<LabWindowProps> = ({ lab }) => {
   return (
     <LabWindowStyled>
       <Typography $variant="h3-medium">Лаба {lab.id}</Typography>
-      <LabWindowFields>
+      <TeacherLabWindowFields>
         <Textarea
           label="Входные данные"
           style={{ gridArea: "input" }}
@@ -48,8 +49,10 @@ export const LabWindow: React.FC<LabWindowProps> = ({ lab }) => {
           onChange={form.fields.comment_for_ai.onChange}
           onClear={() => form.fields.comment_for_ai.onChange("")}
         />
-      </LabWindowFields>
-      <LabWindowSubmit onClick={() => form.submit()}>Сохранить</LabWindowSubmit>
+      </TeacherLabWindowFields>
+      <TeacherLabWindowSubmit onClick={() => form.submit()}>
+        Сохранить
+      </TeacherLabWindowSubmit>
     </LabWindowStyled>
   );
 };
