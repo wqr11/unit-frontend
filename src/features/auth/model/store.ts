@@ -1,13 +1,10 @@
-import { createStore, createEvent } from "effector";
 import { authModel } from "@/entities/auth";
+import { createStore, createEvent, combine } from "effector";
 
-export const setSignUpModalOpen = createEvent<boolean>();
-export const $signUpModalOpen = createStore<boolean>(false)
-  .on(setSignUpModalOpen, (_, data) => data)
-  .on(authModel.getTokensFromCookies.fail, () => true);
+export const $authModalOpen = combine(authModel.$isAuth, (isAuth) => !isAuth);
 
-export const setLoginModalOpen = createEvent<boolean>();
-export const $loginModalOpen = createStore<boolean>(false).on(
-  setLoginModalOpen,
-  (_, data) => data
+export const toggleModalType = createEvent<void>();
+export const $authModalType = createStore<"SIGNUP" | "LOGIN">("LOGIN").on(
+  toggleModalType,
+  (state) => (state === "LOGIN" ? "SIGNUP" : "LOGIN"),
 );

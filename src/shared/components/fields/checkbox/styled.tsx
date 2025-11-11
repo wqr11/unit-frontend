@@ -18,7 +18,6 @@ export const CheckboxMarkIcon = styled(ChatIcon);
 export const CheckboxInput = styled.input.attrs<{ $disabled?: boolean }>({
   type: "checkbox",
 })`
-  all: unset;
   padding: 8px;
   border-radius: 4px;
   background-color: ${({ theme, checked, $disabled }) => {

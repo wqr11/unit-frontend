@@ -6,6 +6,9 @@ import { createStore, createEvent, createEffect, sample } from "effector";
 export const setName = createEvent<string>();
 export const $name = createStore<string>("").on(setName, (_, data) => data);
 
+export const toggleIsTeacher = createEvent<void>();
+export const $isTeacher = createStore<boolean>(false).on(toggleIsTeacher, (state) => !state);
+
 export const setEmail = createEvent<string>();
 export const $email = createStore<string>("").on(setEmail, (_, data) => data);
 
@@ -33,6 +36,7 @@ sample({
   clock: submit,
   source: {
     name: $name,
+    is_teacher: $isTeacher,
     email: $email,
     password: $password,
     confirmPassword: $confirmPassword,

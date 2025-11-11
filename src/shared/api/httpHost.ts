@@ -5,15 +5,16 @@ import { API_URL } from "../config";
 
 export const $httpHost = axios.create({
   baseURL: API_URL,
-  withCredentials: false,
+  withCredentials: true,
   headers: {
-    "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
   },
 });
 
 $httpHost.interceptors.request.use(function (config) {
   const access = authModel.$accessToken.getState();
+  if (!access) return config;
+
   config.headers.setAuthorization(`Bearer ${access}`);
 
   return config;
