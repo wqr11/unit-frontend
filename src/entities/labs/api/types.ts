@@ -35,6 +35,6 @@ export interface TestLabsResult {
       error: string;
       log: string;
       diff: string;
-    }
+    },
   ];
 }

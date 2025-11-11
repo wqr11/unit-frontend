@@ -1,18 +1,17 @@
 import { TeacherSidebar, TeacherLabWindow } from "@/features/labs";
-import { useParams } from "react-router";
 import { useUnit } from "effector-react";
 import { labsModel } from "@/entities/labs";
 import { useMemo } from "react";
+import { routerModel } from "@/entities/router";
 
 export const TeacherLabsPage = () => {
-  const params = useParams<{ id?: string }>();
-
-  const { id } = params;
-
   const labs = useUnit(labsModel.$labs);
+  const labId = useUnit(routerModel.$labId);
 
-  const lab = useMemo(() => labs.find((lab) => lab.id === id), [labs, params]);
-
+  const lab = useMemo(
+    () => labs.find((lab) => lab.id === labId),
+    [labs, labId],
+  );
   return (
     <>
       <TeacherSidebar />

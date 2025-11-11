@@ -11,12 +11,17 @@ import { useNavigate } from "react-router";
 export const TeacherSidebar = () => {
   const labs = useUnit(labsModel.$labs);
   const getLabs = useUnit(labsModel.getLabsFx);
-  const createLab = useUnit(labsModel.createLabFx);
+  const createLab = useUnit(labsModel.createLab);
 
   const navigate = useNavigate();
 
-  const handleClick = useCallback((url: string) => {
-    navigate(`/teacher/${url}`);
+  const handleClick = useCallback((labId: string) => {
+    const baseUrl = /(\/subject\/[^/]*)(\/teacher)\/[^/]*/
+      .exec(document.location.href)!
+      .slice(1)
+      .join("");
+
+    navigate(`${baseUrl}/${labId}`);
   }, []);
 
   useLayoutEffect(() => {
