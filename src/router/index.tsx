@@ -3,6 +3,7 @@ import { PageWithSidebarLayout } from "@/layouts/with-sidebar";
 import { TeacherLabsPage } from "@/pages/labs/teacher";
 import { StudentLabsPage } from "@/pages/labs/student";
 import { RouterProvider, createBrowserRouter } from "react-router";
+import { SubjectsPageUI } from "@/pages/subjects";
 
 const router = createBrowserRouter([
   {
@@ -10,26 +11,36 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: "/",
-        element: <PageWithSidebarLayout />,
+        path: "/subject",
         children: [
           {
-            path: "/student",
-            children: [
-              {
-                path: ":id",
-                index: true,
-                element: <StudentLabsPage />,
-              },
-            ],
+            index: true,
+            element: <SubjectsPageUI />,
           },
           {
-            path: "/teacher",
+            path: "/subject/:subjectId",
+            index: false,
+            element: <PageWithSidebarLayout />,
             children: [
               {
-                path: ":id",
-                index: true,
-                element: <TeacherLabsPage />,
+                path: "student",
+                children: [
+                  {
+                    path: ":labId?",
+                    index: true,
+                    element: <StudentLabsPage />,
+                  },
+                ],
+              },
+              {
+                path: "teacher",
+                children: [
+                  {
+                    path: ":labId?",
+                    index: true,
+                    element: <TeacherLabsPage />,
+                  },
+                ],
               },
             ],
           },

@@ -12,8 +12,13 @@ export const StudentSidebar = () => {
 
   const navigate = useNavigate();
 
-  const handleClick = useCallback((url: string) => {
-    navigate(`/student/${url}`);
+  const handleClick = useCallback((labId: string) => {
+    const baseUrl = /(\/subject\/[^/]*)(\/student)\/[^/]*/
+      .exec(document.location.href)!
+      .slice(1)
+      .join("");
+
+    navigate(`${baseUrl}/${labId}`);
   }, []);
 
   return (
