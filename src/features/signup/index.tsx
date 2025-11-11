@@ -18,6 +18,9 @@ export const SignUpModal: React.FC<SignUpModalProps> = React.memo(
     const setName = useUnit(signUpModalModel.setName);
     const name = useUnit(signUpModalModel.$name);
 
+    const toggleIsTeacher = useUnit(signUpModalModel.toggleIsTeacher);
+    const isTeacher = useUnit(signUpModalModel.$isTeacher);
+
     const setEmail = useUnit(signUpModalModel.setEmail);
     const email = useUnit(signUpModalModel.$email);
 
@@ -53,7 +56,7 @@ export const SignUpModal: React.FC<SignUpModalProps> = React.memo(
           onClear={() => setName("")}
           value={name}
         />
-        <Checkbox />
+        <Checkbox onInput={toggleIsTeacher} checked={isTeacher}>Я преподаватель</Checkbox>
         <Input
           placeholder="Почта"
           onChange={setEmail}

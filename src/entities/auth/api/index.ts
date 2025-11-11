@@ -1,22 +1,14 @@
 import { $httpHost } from "@/shared/api";
 import { API_URL } from "@/shared/config";
+import { IUser, SignUpFxParams } from "../model/types";
 
 export class AuthApi {
-  static async signUp({
-    name,
-    email,
-    password,
-  }: {
-    name: string;
-    email: string;
-    password: string;
-  }) {
-    return await $httpHost.post(`${API_URL}/register`, {
-      name,
-      email,
-      password,
-      is_student: false,
-    });
+  static async getMe() {
+    return await $httpHost.get<IUser>(`${API_URL}/me`);
+  }
+
+  static async signUp(params: SignUpFxParams) {
+    return await $httpHost.post(`${API_URL}/register`, params);
   }
 
   static async login({ email, password }: { email: string; password: string }) {
@@ -27,6 +19,6 @@ export class AuthApi {
   }
 
   static async refresh() {
-    return await $httpHost.get(`${API_URL}/refresh`);
+    return await $httpHost.post(`${API_URL}/refresh`);
   }
 }

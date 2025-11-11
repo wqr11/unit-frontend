@@ -3,6 +3,7 @@ import { z } from "zod";
 export const SignUpFormSchema = z
   .object({
     name: z.string(),
+    is_teacher: z.boolean(),
     email: z.string().email(),
     password: z.string(),
     confirmPassword: z.string(),

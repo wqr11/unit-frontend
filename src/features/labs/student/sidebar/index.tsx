@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useCallback, useLayoutEffect } from "react";
+import { useCallback } from "react";
 import { useUnit } from "effector-react";
 import { labsModel } from "@/entities/labs";
 
@@ -8,16 +8,12 @@ import { Button } from "@/components/button";
 import { Typography } from "@/components/typography";
 
 export const StudentSidebar = () => {
-  const [labs, getLabs] = useUnit([labsModel.$labs, labsModel.getLabsFx]);
+  const labs = useUnit(labsModel.$labs);
 
   const navigate = useNavigate();
 
   const handleClick = useCallback((url: string) => {
     navigate(`/student/${url}`);
-  }, []);
-
-  useLayoutEffect(() => {
-    getLabs();
   }, []);
 
   return (

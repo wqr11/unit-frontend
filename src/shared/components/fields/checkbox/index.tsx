@@ -1,23 +1,25 @@
-import React, { PropsWithChildren, useCallback } from "react";
+import React, { PropsWithChildren, useCallback, useEffect } from "react";
 import { CheckboxLabel, CheckboxInput, CheckboxWrapper } from "./styled";
 
 export interface CheckboxProps extends PropsWithChildren {
   $disabled?: boolean;
-  onChange?: (value: boolean) => unknown;
+  checked?: boolean;
+  onInput?: (value: boolean) => unknown;
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({
-  $disabled,
+  $disabled = false,
   children,
-  onChange,
+  checked,
+  onInput,
 }) => {
-  const handleChange = useCallback(
+  const handleInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
       if ($disabled) {
         return;
       }
-      onChange?.(e.target.checked);
+      onInput?.(!checked);
     },
     [$disabled]
   );
@@ -25,7 +27,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   return (
     <CheckboxWrapper>
       <CheckboxLabel>{children}</CheckboxLabel>
-      <CheckboxInput $disabled onChange={handleChange} />
+      <CheckboxInput $disabled onInput={handleInput} checked={checked}/>
     </CheckboxWrapper>
   );
 };

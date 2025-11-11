@@ -1,19 +1,14 @@
 import { createStore, createEffect, combine, sample, split } from "effector";
 import { AxiosError } from "axios";
 import { AuthApi } from "..";
-import {
-  LoginFxParams,
-  LoginFxResult,
-  SignUpFxParams,
-  SignUpFxResult,
-} from "./types";
+import { IUser, LoginFxParams, LoginFxResult, SignUpFxParams } from "./types";
 import { CookieUtils } from "@/shared/utils/cookie";
 import { notificationModel } from "@/entities/notifications";
 
 export const setTokensFromCookies = createEffect(
   (params: { access: string; refresh: string }) => {
     CookieUtils.saveTokenCookies(params);
-  }
+  },
 );
 
 export const getTokensFromCookies = createEffect(() => {
@@ -26,25 +21,28 @@ export const getTokensFromCookies = createEffect(() => {
   return { access, refresh };
 });
 
-export const signUpFx = createEffect<
-  SignUpFxParams,
-  SignUpFxResult,
-  AxiosError
->(async ({ name, email, password }) => {
-  const { data } = await AuthApi.signUp({ name, email, password });
+export const getMeFx = createEffect(async () => {
+  const { data } = await AuthApi.getMe();
   return data;
 });
 
+export const signUpFx = createEffect<SignUpFxParams, unknown, AxiosError>(
+  async (params) => {
+    const { data } = await AuthApi.signUp(params);
+    return data;
+  },
+);
+
 const $lastUsedSignUpCredentials = createStore<SignUpFxParams | null>(null).on(
   signUpFx,
-  (_, data) => data
+  (_, data) => data,
 );
 
 export const loginFx = createEffect<LoginFxParams, LoginFxResult>(
   async ({ email, password }) => {
     const { data } = await AuthApi.login({ email, password });
     return data;
-  }
+  },
 );
 
 export const refreshFx = createEffect<void, void>(async () => {
@@ -69,13 +67,14 @@ export const $refreshToken = createStore<string | null>(null)
 export const $authTokens = combine(
   $accessToken,
   $refreshToken,
-  (access, refresh) => ({ access, refresh })
+  (access, refresh) => ({ access, refresh }),
 );
 
-export const $isAuth = combine(
-  $authTokens,
-  ({ access, refresh }) => !!access && !!refresh
-);
+export const $user = createStore<IUser | null>(null)
+  .on(getMeFx.doneData, (_, data) => data)
+  .reset(getMeFx.fail);
+
+export const $isAuth = combine($user, (user) => !!user);
 
 sample({
   clock: signUpFx.doneData,
@@ -83,6 +82,11 @@ sample({
   filter: (creds) => !!creds,
   fn: (creds) => creds!,
   target: loginFx,
+});
+
+sample({
+  clock: loginFx.doneData,
+  target: getMeFx,
 });
 
 sample({
