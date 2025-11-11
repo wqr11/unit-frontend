@@ -11,9 +11,9 @@ import { SignUpModal } from "@/features/signup";
 import { RootLayoutGate } from "./model";
 import { Notifications } from "@/entities/notifications";
 import { authModel } from "@/entities/auth";
-import { labsModel } from "@/entities/labs";
 import { useParams } from "react-router";
 import { routerModel } from "@/entities/router";
+import { Header } from "@/entities/header";
 
 export interface RootLayoutProps extends PropsWithChildren {}
 
@@ -33,11 +33,10 @@ export const RootLayout: React.FC<RootLayoutProps> = () => {
     authModalModel.toggleModalType,
   ]);
 
-  const [getMe, getLabs] = useUnit([authModel.getMeFx, labsModel.getLabsFx]);
+  const getMe = useUnit(authModel.getMeFx);
 
   useLayoutEffect(() => {
     getMe();
-    getLabs();
   }, []);
 
   useEffect(() => {
@@ -56,6 +55,7 @@ export const RootLayout: React.FC<RootLayoutProps> = () => {
         open={isAuthModalOpen && modalType === "SIGNUP"}
         onChangeToLogin={toggleModalType}
       />
+      <Header />
       <Outlet />
     </RootLayoutStyled>
   );

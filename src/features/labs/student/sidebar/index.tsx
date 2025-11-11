@@ -3,7 +3,12 @@ import { useCallback } from "react";
 import { useUnit } from "effector-react";
 import { labsModel } from "@/entities/labs";
 
-import { SidebarItem, SidebarStyled } from "../../styled";
+import {
+  SidebarItem,
+  SidebarItemText,
+  SidebarScrollbar,
+  SidebarStyled,
+} from "../../styled";
 import { Button } from "@/components/button";
 import { Typography } from "@/components/typography";
 
@@ -13,7 +18,7 @@ export const StudentSidebar = () => {
   const navigate = useNavigate();
 
   const handleClick = useCallback((labId: string) => {
-    const baseUrl = /(\/subject\/[^/]*)(\/student)\/[^/]*/
+    const baseUrl = /(\/subject\/[^/]*)(\/student)\/?[^/]*/
       .exec(document.location.href)!
       .slice(1)
       .join("");
@@ -24,13 +29,15 @@ export const StudentSidebar = () => {
   return (
     <SidebarStyled>
       <Typography $variant="p-medium">Лабораторные</Typography>
-      {labs.map((d) => (
-        <SidebarItem key={d.id}>
-          <Button onClick={() => handleClick(d.id)}>
-            <Typography $variant="p-normal">{d.id}</Typography>
-          </Button>
-        </SidebarItem>
-      ))}
+      <SidebarScrollbar>
+        {labs.map((d) => (
+          <SidebarItem key={d.id}>
+            <Button onClick={() => handleClick(d.id)}>
+              <SidebarItemText>{d.name}</SidebarItemText>
+            </Button>
+          </SidebarItem>
+        ))}
+      </SidebarScrollbar>
     </SidebarStyled>
   );
 };

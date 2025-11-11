@@ -7,7 +7,11 @@ export const TeacherSidebarItemDeleteButton = styled(Button).attrs({
   children: <CloseIcon width={14} height={14} />,
   tabIndex: -1,
 })`
-  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
   &:hover {
     opacity: 0.6;
   }

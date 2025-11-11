@@ -12,7 +12,7 @@ export const Typography = styled.span<TypographyProps>`
 
     const [size, weight] = $variant?.split("-") as [
       TypographySize,
-      TypographyWeight
+      TypographyWeight,
     ];
 
     switch (size) {
@@ -24,6 +24,9 @@ export const Typography = styled.span<TypographyProps>`
         break;
       case "h3":
         fontSize = "1.95em";
+        break;
+      case "h4":
+        fontSize = "1.5em";
         break;
       case "p":
         fontSize = "1em";

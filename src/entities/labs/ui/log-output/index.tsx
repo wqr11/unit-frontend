@@ -75,12 +75,7 @@ export const LogOutput: React.FC<LogOutputProps> = ({ children, data }) => {
                 </div>
               )}
 
-              {test.diff && (
-                <div>
-                  <Typography $variant="p-normal">Diff: </Typography>
-                  <LogOutputText $warning>{test.diff}</LogOutputText>
-                </div>
-              )}
+              {test.diff && <LogOutputText $warning>{test.diff}</LogOutputText>}
             </TestResultItem>
           ))}
 

@@ -9,7 +9,7 @@ export const InputWrapper = styled.div`
   gap: 8px;
 `;
 
-export const InputStyled = styled.a.attrs({
+export const InputStyled = styled.div.attrs({
   tabIndex: -1,
 })`
   padding: 12px 36px;

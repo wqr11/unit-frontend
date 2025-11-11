@@ -16,8 +16,10 @@ export class LabsApi {
     return data;
   }
 
-  static async list() {
-    const { data } = await $httpHost.get<GetLabsResult>("/labs");
+  static async list(subjectId: string) {
+    const { data } = await $httpHost.get<GetLabsResult>(
+      `/subjects/labs/${subjectId}`,
+    );
     return data;
   }
 
@@ -46,10 +48,12 @@ export class LabsApi {
   }
 
   static async test({ id, ...params }: TestLabsParams) {
-    const { data } = await $httpHost.post<TestLabsResult>(
-      `/labs/${id}/test`,
-      params,
-    );
+    const { data } = await $httpHost.post<TestLabsResult>(`/labs/${id}/test`, {
+      ...params,
+      name: "",
+      surname: "",
+      group: "",
+    });
     return data;
   }
 }

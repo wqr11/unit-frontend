@@ -1,7 +1,8 @@
+import { Button } from "@/shared/components/button";
 import { Typography } from "@/shared/components/typography";
 import { styled } from "styled-components";
 
-export const SubjectStyled = styled.a`
+export const SubjectStyled = styled(Button)`
   display: block;
   padding: 20px;
   border-radius: 8px;

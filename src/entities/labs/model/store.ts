@@ -13,8 +13,8 @@ export const createLab = createEvent<void>();
 
 export const addLabTestResult = createEvent<ILabTestResult>();
 
-export const getLabsFx = createEffect(async () => {
-  return await LabsApi.list();
+export const getLabsBySubjectIdFx = createEffect(async (subjectId: string) => {
+  return await LabsApi.list(subjectId);
 });
 
 export const getLabByIdFx = createEffect(async (id: string) => {
@@ -38,9 +38,18 @@ export const testLabsFx = createEffect(async (params: TestLabsParams) => {
 });
 
 /* @TODO: ADD PAGINATION LATER! */
+/* @TODO: Add KEY (subjectId) - VALUE (labs) */
 export const $labs = createStore<ILab[]>([])
-  .on(getLabsFx.doneData, (_, data) => data)
+  .on(getLabsBySubjectIdFx.doneData, (_, data) => data)
   .on(createLabFx.doneData, (state, data) => [...state, data])
+  .on(updateLabFx.doneData, (state, changed) => {
+    const oldLab = state.find((s) => s.id === changed.id)!;
+
+    return [
+      ...state.filter((s) => s.id !== changed.id),
+      { ...oldLab, ...changed },
+    ];
+  })
   .on(deleteLabFx, (state, deletedId) =>
     state.filter((l) => l.id !== deletedId),
   );
