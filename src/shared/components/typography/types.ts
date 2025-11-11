@@ -4,6 +4,6 @@ export type TypographyWeight =
   | "medium"
   | "semibold"
   | "bold";
-export type TypographySize = "h1" | "h2" | "h3" | "p" | "small";
+export type TypographySize = "h1" | "h2" | "h3" | "h4" | "p" | "small";
 
 export type TypographyVariant = `${TypographySize}-${TypographyWeight}`;

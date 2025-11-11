@@ -9,6 +9,6 @@ export const RootLayoutStyled = styled.main`
   display: grid;
   grid-template-areas: "header" "content";
   grid-template-columns: 1fr;
-  grid-template-rows: 40px calc(100% - 40px);
+  grid-template-rows: 64px calc(100% - 64px);
   background-color: ${({ theme }) => theme.colors.grayScale.bg};
 `;

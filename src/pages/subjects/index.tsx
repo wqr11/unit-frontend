@@ -1,4 +1,5 @@
 import {
+  SubjectPageList,
   SubjectPageTitle,
   SubjectsPageStyled,
   SubjectsPageWrapper,
@@ -8,6 +9,7 @@ import { useUnit } from "effector-react";
 import { subjectModel } from "@/entities/subject";
 import { useLayoutEffect, useMemo } from "react";
 import { authModel } from "@/entities/auth";
+import { useNavigate } from "react-router";
 
 export const SubjectsPageUI = () => {
   const user = useUnit(authModel.$user);
@@ -16,6 +18,8 @@ export const SubjectsPageUI = () => {
     subjectModel.$subjects,
     subjectModel.getSubjectsFx,
   ]);
+
+  const navigate = useNavigate();
 
   const accountTypeSegment = useMemo(
     () => (user?.is_teacher ? "teacher" : "student"),
@@ -30,11 +34,16 @@ export const SubjectsPageUI = () => {
     <SubjectsPageWrapper>
       <SubjectsPageStyled>
         <SubjectPageTitle>Предметы</SubjectPageTitle>
-        {subjects.map(({ id, name }) => (
-          <Subject key={id} href={`/subject/${id}/${accountTypeSegment}`}>
-            {name}
-          </Subject>
-        ))}
+        <SubjectPageList>
+          {subjects.map(({ id, name }) => (
+            <Subject
+              key={id}
+              onClick={() => navigate(`/subject/${id}/${accountTypeSegment}`)}
+            >
+              {name}
+            </Subject>
+          ))}
+        </SubjectPageList>
       </SubjectsPageStyled>
     </SubjectsPageWrapper>
   );

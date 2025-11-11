@@ -2,12 +2,12 @@ import { PropsWithChildren } from "react";
 import * as S from "./styled";
 
 export interface SubjectProps extends PropsWithChildren {
-  href: string;
+  onClick?: () => unknown;
 }
 
-export const Subject: React.FC<SubjectProps> = ({ href, children }) => {
+export const Subject: React.FC<SubjectProps> = ({ onClick, children }) => {
   return (
-    <S.SubjectStyled href={href}>
+    <S.SubjectStyled onClick={onClick}>
       <S.SubjectTitle>{children}</S.SubjectTitle>
     </S.SubjectStyled>
   );

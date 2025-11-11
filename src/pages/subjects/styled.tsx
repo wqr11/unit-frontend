@@ -24,3 +24,10 @@ export const SubjectPageTitle = styled(Typography).attrs({
 })`
   margin: 16px 16px 32px 16px;
 `;
+
+export const SubjectPageList = styled.div`
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 20px;
+`;

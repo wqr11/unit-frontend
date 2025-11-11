@@ -10,7 +10,7 @@ export const TextareaWrapper = styled.div`
   gap: 8px;
 `;
 
-export const TextareaStyled = styled.a.attrs({
+export const TextareaStyled = styled.div.attrs({
   tabIndex: -1,
 })`
   padding: 12px 36px 12px 12px;
