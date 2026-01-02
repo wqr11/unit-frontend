@@ -1,4 +1,4 @@
-import { createEffect, createStore } from "effector";
+import { createEffect, createEvent, createStore } from "effector";
 import { Subject, SubjectApi } from "../api";
 
 export const getSubjectsFx = createEffect(async () => {
@@ -8,5 +8,5 @@ export const getSubjectsFx = createEffect(async () => {
 
 export const $subjects = createStore<Subject[]>([]).on(
   getSubjectsFx.doneData,
-  (_, data) => data,
+  (_, data) => data
 );

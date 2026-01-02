@@ -14,20 +14,11 @@ import { Typography } from "@/shared/components/typography";
 import { useNavigate } from "react-router";
 
 export const TeacherSidebar = () => {
-  const labs = useUnit(labsModel.$labs);
+  const labs = useUnit(labsModel.$labsForCurrentSubject);
   const createLab = useUnit(labsModel.createLab);
   const deleteLab = useUnit(labsModel.deleteLabFx);
 
   const navigate = useNavigate();
-
-  const handleClick = useCallback((labId: string) => {
-    const baseUrl = /(\/subject\/[^/]*)(\/teacher)\/[^/]*/
-      .exec(document.location.href)!
-      .slice(1)
-      .join("");
-
-    navigate(`${baseUrl}/${labId}`);
-  }, []);
 
   return (
     <SidebarStyled $isTeacher>
@@ -38,7 +29,7 @@ export const TeacherSidebar = () => {
       <SidebarScrollbar>
         {labs.map((d) => (
           <SidebarItem key={d.id}>
-            <Button onClick={() => handleClick(d.id)}>
+            <Button onClick={() => navigate(`${d.id}`)}>
               <SidebarItemText>{d.name}</SidebarItemText>
             </Button>
             <TeacherSidebarItemDeleteButton onClick={() => deleteLab(d.id)} />

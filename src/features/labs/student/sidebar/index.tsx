@@ -13,18 +13,9 @@ import { Button } from "@/components/button";
 import { Typography } from "@/components/typography";
 
 export const StudentSidebar = () => {
-  const labs = useUnit(labsModel.$labs);
+  const labs = useUnit(labsModel.$labsForCurrentSubject);
 
   const navigate = useNavigate();
-
-  const handleClick = useCallback((labId: string) => {
-    const baseUrl = /(\/subject\/[^/]*)(\/student)\/?[^/]*/
-      .exec(document.location.href)!
-      .slice(1)
-      .join("");
-
-    navigate(`${baseUrl}/${labId}`);
-  }, []);
 
   return (
     <SidebarStyled>
@@ -32,7 +23,7 @@ export const StudentSidebar = () => {
       <SidebarScrollbar>
         {labs.map((d) => (
           <SidebarItem key={d.id}>
-            <Button onClick={() => handleClick(d.id)}>
+            <Button onClick={() => navigate(d.id)}>
               <SidebarItemText>{d.name}</SidebarItemText>
             </Button>
           </SidebarItem>

@@ -1,9 +1,8 @@
 import { RootLayout } from "@/layouts/root";
 import { PageWithSidebarLayout } from "@/layouts/with-sidebar";
-import { TeacherLabsPage } from "@/pages/labs/teacher";
-import { StudentLabsPage } from "@/pages/labs/student";
 import { RouterProvider, createBrowserRouter } from "react-router";
 import { SubjectsPageUI } from "@/pages/subjects";
+import { LabsPage } from "@/features/labs";
 
 const router = createBrowserRouter([
   {
@@ -11,38 +10,18 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: "/subject",
+        index: true,
+        element: <SubjectsPageUI />,
+      },
+      {
+        path: ":subjectId",
+        index: false,
+        element: <PageWithSidebarLayout />,
         children: [
           {
+            path: ":labId?",
             index: true,
-            element: <SubjectsPageUI />,
-          },
-          {
-            path: "/subject/:subjectId",
-            index: false,
-            element: <PageWithSidebarLayout />,
-            children: [
-              {
-                path: "student",
-                children: [
-                  {
-                    path: ":labId?",
-                    index: true,
-                    element: <StudentLabsPage />,
-                  },
-                ],
-              },
-              {
-                path: "teacher",
-                children: [
-                  {
-                    path: ":labId?",
-                    index: true,
-                    element: <TeacherLabsPage />,
-                  },
-                ],
-              },
-            ],
+            element: <LabsPage />,
           },
         ],
       },

@@ -1,20 +1,23 @@
-import { createEffect, createEvent, createStore, sample } from "effector";
 import {
-  ILab,
-  ILabTestResult,
-  LabsApi,
-  TestLabsParams,
-  UpdateLabsParams,
-} from "..";
+  combine,
+  createEffect,
+  createEvent,
+  createStore,
+  sample,
+} from "effector";
+import { ILabTestResult, LabsApi, TestLabsParams, UpdateLabsParams } from "..";
 import { notificationModel } from "@/entities/notifications";
 import { routerModel } from "@/entities/router";
+import { LabsSaved } from "./types";
 
 export const createLab = createEvent<void>();
 
 export const addLabTestResult = createEvent<ILabTestResult>();
 
 export const getLabsBySubjectIdFx = createEffect(async (subjectId: string) => {
-  return await LabsApi.list(subjectId);
+  const labs = await LabsApi.list(subjectId);
+
+  return { subjectId, labs };
 });
 
 export const getLabByIdFx = createEffect(async (id: string) => {
@@ -22,7 +25,9 @@ export const getLabByIdFx = createEffect(async (id: string) => {
 });
 
 export const createLabFx = createEffect(async (subjectId: string) => {
-  return await LabsApi.create({ subjectId });
+  const createdLab = await LabsApi.create({ subjectId });
+
+  return { subjectId, labs: [createdLab] };
 });
 
 export const updateLabFx = createEffect(async (params: UpdateLabsParams) => {
@@ -39,29 +44,41 @@ export const testLabsFx = createEffect(async (params: TestLabsParams) => {
 
 /* @TODO: ADD PAGINATION LATER! */
 /* @TODO: Add KEY (subjectId) - VALUE (labs) */
-export const $labs = createStore<ILab[]>([])
-  .on(getLabsBySubjectIdFx.doneData, (_, data) => data)
-  .on(createLabFx.doneData, (state, data) => [...state, data])
-  .on(updateLabFx.doneData, (state, changed) => {
-    const oldLab = state.find((s) => s.id === changed.id)!;
+export const $labs = createStore<LabsSaved>({})
+  .on(getLabsBySubjectIdFx.doneData, (state, { labs, subjectId }) => ({
+    ...state,
+    [subjectId]: labs,
+  }))
+  .on(createLabFx.doneData, (state, { labs, subjectId }) => ({
+    ...state,
+    [subjectId]: [...state?.[subjectId], ...labs],
+  }));
+// .on(updateLabFx.doneData, (state, changed) => {
+//   const oldLab = state.find((s) => s.id === changed.id)!;
 
-    return [
-      ...state.filter((s) => s.id !== changed.id),
-      { ...oldLab, ...changed },
-    ];
-  })
-  .on(deleteLabFx, (state, deletedId) =>
-    state.filter((l) => l.id !== deletedId),
-  );
+//   return [
+//     ...state.filter((s) => s.id !== changed.id),
+//     { ...oldLab, ...changed },
+//   ];
+// })
+// .on(deleteLabFx, (state, deletedId) =>
+//   state.filter((l) => l.id !== deletedId)
+// );
+
+export const $labsForCurrentSubject = combine(
+  $labs,
+  routerModel.$subjectId,
+  (labs, subjectId) => (subjectId ? labs?.[subjectId] || [] : [])
+);
 
 export const $lastTestedLabId = createStore<string | null>(null).on(
   testLabsFx,
-  (_, data) => data.id,
+  (_, data) => data.id
 );
 
 export const $labsTestResults = createStore<ILabTestResult[]>([]).on(
   addLabTestResult,
-  (state, data) => [...state.filter((d) => d.id !== data.id), data],
+  (state, data) => [...state.filter((d) => d.id !== data.id), data]
 );
 
 sample({

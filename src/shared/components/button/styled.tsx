@@ -2,14 +2,16 @@ import { css, styled } from "styled-components";
 
 export interface ButtonProps {
   $disabled?: boolean;
+  $disableHover?: boolean;
 }
 
 export const Button = styled.button<ButtonProps>`
   all: unset;
   display: flex;
   align-items: center;
-  ${({ $disabled }) =>
+  ${({ $disabled, $disableHover }) =>
     !$disabled &&
+    !$disableHover &&
     css`
       &:hover {
         cursor: pointer;

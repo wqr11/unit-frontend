@@ -10,6 +10,7 @@ export const LabWindowStyled = styled.div`
   border-radius: 12px;
   background-color: ${({ theme }) => theme.colors.base.white};
   border: 1px solid ${({ theme }) => theme.colors.grayScale.gray1};
+  overflow: auto;
 `;
 
 export const SidebarStyled = styled.div<{ $isTeacher?: boolean }>`

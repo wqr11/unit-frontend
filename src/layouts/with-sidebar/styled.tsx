@@ -5,7 +5,7 @@ export const PageWithSidebarLayoutStyled = styled.div`
   display: grid;
   gap: 34px;
   grid-template-areas: "sidebar main";
-  grid-template-rows: 1fr;
+  grid-template-rows: 100%;
   grid-template-columns: max(240px, 20%) auto;
   padding: 12px;
 `;

@@ -1,14 +1,24 @@
-import { createStore, createEffect, combine, sample, split } from "effector";
+import {
+  createStore,
+  createEffect,
+  combine,
+  sample,
+  split,
+  createEvent,
+} from "effector";
 import { AxiosError } from "axios";
 import { AuthApi } from "..";
 import { IUser, LoginFxParams, LoginFxResult, SignUpFxParams } from "./types";
 import { CookieUtils } from "@/shared/utils/cookie";
 import { notificationModel } from "@/entities/notifications";
 
+export const setAccessToken = createEvent<string | null>();
+export const setRefreshToken = createEvent<string | null>();
+
 export const setTokensFromCookies = createEffect(
   (params: { access: string; refresh: string }) => {
     CookieUtils.saveTokenCookies(params);
-  },
+  }
 );
 
 export const getTokensFromCookies = createEffect(() => {
@@ -30,19 +40,19 @@ export const signUpFx = createEffect<SignUpFxParams, unknown, AxiosError>(
   async (params) => {
     const { data } = await AuthApi.signUp(params);
     return data;
-  },
+  }
 );
 
 const $lastUsedSignUpCredentials = createStore<SignUpFxParams | null>(null).on(
   signUpFx,
-  (_, data) => data,
+  (_, data) => data
 );
 
 export const loginFx = createEffect<LoginFxParams, LoginFxResult>(
   async ({ email, password }) => {
     const { data } = await AuthApi.login({ email, password });
     return data;
-  },
+  }
 );
 
 export const refreshFx = createEffect<void, void>(async () => {
@@ -55,11 +65,13 @@ export const signOutFx = createEffect(async () => {
 });
 
 export const $accessToken = createStore<string | null>(null)
+  .on(setAccessToken, (_, data) => data)
   .on(loginFx.doneData, (_, data) => data.access_token)
   .on(getTokensFromCookies.doneData, (_, { access }) => access)
   .reset(signOutFx.done);
 
 export const $refreshToken = createStore<string | null>(null)
+  .on(setRefreshToken, (_, data) => data)
   .on(loginFx.doneData, (_, data) => data.refresh_token)
   .on(getTokensFromCookies.doneData, (_, { refresh }) => refresh)
   .reset(signOutFx.done);
@@ -67,7 +79,7 @@ export const $refreshToken = createStore<string | null>(null)
 export const $authTokens = combine(
   $accessToken,
   $refreshToken,
-  (access, refresh) => ({ access, refresh }),
+  (access, refresh) => ({ access, refresh })
 );
 
 export const $user = createStore<IUser | null>(null)

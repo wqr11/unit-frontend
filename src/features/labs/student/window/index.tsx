@@ -41,6 +41,7 @@ export const StudentLabWindow: React.FC<StudentLabWindowProps> = ({ lab }) => {
       </Typography>
       <StudentLabWindowFields>
         <Textarea
+          placeholder="Код здесь"
           style={{ gridArea: "answer" }}
           label="Решение"
           value={form.fields.student_code.value}
@@ -50,9 +51,9 @@ export const StudentLabWindow: React.FC<StudentLabWindowProps> = ({ lab }) => {
       </StudentLabWindowFields>
       <StudentLabWindowButtons>
         <StudentLabWindowTestButton onClick={() => form.submit()}>
-          Test
+          Тест
         </StudentLabWindowTestButton>
-        <StudentLabWindowTestButton>Submit</StudentLabWindowTestButton>
+        <StudentLabWindowTestButton>Подтвердить</StudentLabWindowTestButton>
       </StudentLabWindowButtons>
     </LabWindowStyled>
   );
