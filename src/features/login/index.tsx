@@ -22,6 +22,8 @@ export const LoginModal: React.FC<LoginModalProps> = React.memo(
 
     const submit = useUnit(loginModalModel.submit);
 
+    if (!open) return;
+
     return (
       <Modal title="Вход" open={open} closable={false}>
         <Input

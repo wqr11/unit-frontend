@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import { useUnit } from "effector-react";
 import { TeacherSidebarAddLab, TeacherSidebarItemDeleteButton } from "./styled";
 import {
@@ -7,16 +8,16 @@ import {
   SidebarStyled,
 } from "../../styled";
 import { labsModel } from "@/entities/labs";
-import { useCallback } from "react";
 import { Button } from "@/shared/components/button";
 import { Typography } from "@/shared/components/typography";
 
-import { useNavigate } from "react-router";
-
 export const TeacherSidebar = () => {
   const labs = useUnit(labsModel.$labsForCurrentSubject);
-  const createLab = useUnit(labsModel.createLab);
-  const deleteLab = useUnit(labsModel.deleteLabFx);
+
+  const [createLab, deleteLab] = useUnit([
+    labsModel.createLab,
+    labsModel.deleteLabFx,
+  ]);
 
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ export const TeacherSidebar = () => {
       <Typography $variant="p-medium">Лабораторные</Typography>
       <SidebarScrollbar>
         {labs.map((d) => (
-          <SidebarItem key={d.id}>
+          <SidebarItem key={d.id} $isTeacher>
             <Button onClick={() => navigate(`${d.id}`)}>
               <SidebarItemText>{d.name}</SidebarItemText>
             </Button>

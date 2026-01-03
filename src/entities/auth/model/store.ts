@@ -62,6 +62,7 @@ export const refreshFx = createEffect<void, void>(async () => {
 
 export const signOutFx = createEffect(async () => {
   CookieUtils.deleteTokenCookies();
+  document.location.href = "/";
 });
 
 export const $accessToken = createStore<string | null>(null)

@@ -46,9 +46,9 @@ export const SidebarScrollbar = styled.div`
   padding: 16px 8px;
 `;
 
-export const SidebarItem = styled.div`
+export const SidebarItem = styled.div<{ $isTeacher?: boolean }>`
   display: grid;
-  grid-template-columns: calc(100% - 64px) 64px;
+  grid-template-columns: 1fr ${({ $isTeacher }) => ($isTeacher ? "64px" : "")};
   grid-template-rows: 64px;
   background-color: ${({ theme }) => theme.colors.grayScale.bg};
   border: 1px solid ${({ theme }) => theme.colors.grayScale.gray1};

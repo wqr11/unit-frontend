@@ -7,7 +7,10 @@ export const setName = createEvent<string>();
 export const $name = createStore<string>("").on(setName, (_, data) => data);
 
 export const toggleIsTeacher = createEvent<void>();
-export const $isTeacher = createStore<boolean>(false).on(toggleIsTeacher, (state) => !state);
+export const $isTeacher = createStore<boolean>(false).on(
+  toggleIsTeacher,
+  (state) => !state
+);
 
 export const setEmail = createEvent<string>();
 export const $email = createStore<string>("").on(setEmail, (_, data) => data);
@@ -31,6 +34,8 @@ const formatFieldsFx = createEffect<SignUpFormType, SignUpFormType, Error>(
     return await SignUpFormSchema.parseAsync(fields);
   }
 );
+
+formatFieldsFx.watch((d) => console.log(d, "ASDSAD"));
 
 sample({
   clock: submit,

@@ -54,6 +54,8 @@ export const TextareaField = styled.textarea.attrs({
   min-height: 60px;
   resize: vertical;
 
+  color: ${({ theme }) => theme.colors.base.black};
+
   &::placeholder {
     color: ${({ theme }) => theme.colors.grayScale.gray4};
     opacity: 0.6;

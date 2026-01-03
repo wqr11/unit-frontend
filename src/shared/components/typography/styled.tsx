@@ -12,7 +12,7 @@ export const Typography = styled.span<TypographyProps>`
 
     const [size, weight] = $variant?.split("-") as [
       TypographySize,
-      TypographyWeight,
+      TypographyWeight
     ];
 
     switch (size) {
@@ -59,7 +59,6 @@ export const Typography = styled.span<TypographyProps>`
       font-weight: ${fontWeight};
     `;
   }}
-  overflow-wrap: break-word;
   word-break: normal;
   word-wrap: break-word;
   color: ${({ theme }) => theme.colors.base.black};

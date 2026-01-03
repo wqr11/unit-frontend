@@ -2,6 +2,7 @@ import { Typography } from "@/components/typography";
 import { styled } from "styled-components";
 
 export const LogOutputStyled = styled.div`
+  margin-top: 24px;
   padding: 12px;
   border-radius: 12px;
   background-color: ${({ theme }) => theme.colors.grayScale.bg};

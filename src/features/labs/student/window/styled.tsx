@@ -6,8 +6,8 @@ export const StudentLabWindowFields = styled.div`
   display: grid;
   gap: 20px;
   grid-template-areas: "answer log";
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: auto;
 `;
 
 export const StudentLabWindowButtons = styled.div`

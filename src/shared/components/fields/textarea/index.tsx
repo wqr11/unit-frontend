@@ -39,7 +39,7 @@ export const Textarea: React.FC<TextareaProps> = React.memo(
       <TextareaWrapper style={style}>
         {label && <TextareaLabel>{label}</TextareaLabel>}
         <TextareaStyled
-          onSubmit={(e: React.FormEvent) => e.stopPropagation()}
+          onSubmit={(e: React.FormEvent) => e.preventDefault()}
           onClick={handleTextareaClick}
         >
           <TextareaField
@@ -56,5 +56,5 @@ export const Textarea: React.FC<TextareaProps> = React.memo(
         </TextareaStyled>
       </TextareaWrapper>
     );
-  },
+  }
 );

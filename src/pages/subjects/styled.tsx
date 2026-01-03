@@ -27,8 +27,9 @@ export const SubjectPageTitle = styled(Typography).attrs({
 `;
 
 export const SubjectPageList = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, clamp(100px, 300px, 80vw));
+  justify-content: center;
   width: 100%;
-  flex-wrap: wrap;
   gap: 20px;
 `;

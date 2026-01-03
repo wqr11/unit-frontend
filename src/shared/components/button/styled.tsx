@@ -9,6 +9,7 @@ export const Button = styled.button<ButtonProps>`
   all: unset;
   display: flex;
   align-items: center;
+  border-radius: 12px;
   ${({ $disabled, $disableHover }) =>
     !$disabled &&
     !$disableHover &&

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import { useCallback } from "react";
 import { useUnit } from "effector-react";
 import { labsModel } from "@/entities/labs";
 

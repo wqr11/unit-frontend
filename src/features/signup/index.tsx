@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Modal } from "@/components/modal";
 import { Input } from "@/components/fields/input";
 
@@ -32,21 +32,27 @@ export const SignUpModal: React.FC<SignUpModalProps> = React.memo(
 
     const submit = useUnit(signUpModalModel.submit);
 
-    const handleKeypress = useCallback((e: KeyboardEvent) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        submit();
-      }
-    }, []);
-
     useEffect(() => {
+      if (!open) return;
+
+      const handleKeypress = (e: KeyboardEvent) => {
+        if (!open) return;
+
+        if (e.key === "Enter") {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          submit();
+        }
+      };
+
       window.addEventListener("keypress", handleKeypress);
 
       return () => {
         window.removeEventListener("keypress", handleKeypress);
       };
-    });
+    }, [open]);
+
+    if (!open) return;
 
     return (
       <Modal title="Регистрация" open={open} closable={false}>
@@ -56,7 +62,9 @@ export const SignUpModal: React.FC<SignUpModalProps> = React.memo(
           onClear={() => setName("")}
           value={name}
         />
-        <Checkbox onInput={toggleIsTeacher} checked={isTeacher}>Я преподаватель</Checkbox>
+        <Checkbox onInput={toggleIsTeacher} checked={isTeacher}>
+          Я преподаватель
+        </Checkbox>
         <Input
           placeholder="Почта"
           onChange={setEmail}

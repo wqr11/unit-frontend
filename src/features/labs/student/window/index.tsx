@@ -46,8 +46,9 @@ export const StudentLabWindow: React.FC<StudentLabWindowProps> = ({ lab }) => {
           label="Решение"
           value={form.fields.student_code.value}
           onChange={form.fields.student_code.onChange}
+          onClear={form.fields.student_code.reset}
         />
-        <LogOutput data={data} />
+        <LogOutput data={data}>Результат</LogOutput>
       </StudentLabWindowFields>
       <StudentLabWindowButtons>
         <StudentLabWindowTestButton onClick={() => form.submit()}>

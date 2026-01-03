@@ -37,5 +37,6 @@ export const HeaderUsername = styled(Typography).attrs({
 export const HeaderLogout = styled(Button).attrs({
   children: "Выйти",
 })`
+  padding: 8px;
   color: ${({ theme }) => theme.colors.grayScale.gray4};
 `;
