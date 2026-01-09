@@ -6,6 +6,7 @@ import {
   InputWrapper,
 } from "./styled";
 import { Typography } from "@/components/typography";
+import { useTheme } from "styled-components";
 
 export interface SearchProps {
   placeholder?: string;
@@ -14,15 +15,18 @@ export interface SearchProps {
   style?: CSSProperties;
   onChange?: (value: string) => unknown;
   onClear?: () => unknown;
+  error?: string | string[];
 }
 
 export const Input: React.FC<SearchProps> = React.memo(
-  ({ placeholder, value, label, style, onClear, onChange }) => {
+  ({ placeholder, value, label, style, onClear, onChange, error }) => {
+    const theme = useTheme();
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleInputClick = useCallback(() => {
       inputRef.current?.focus();
-    }, [inputRef.current]);
+    }, []);
 
     return (
       <InputWrapper style={style}>
@@ -41,7 +45,17 @@ export const Input: React.FC<SearchProps> = React.memo(
           />
           <InputCloseButton onClick={onClear} />
         </InputStyled>
+        {!!error &&
+          (Array.isArray(error) ? error : [error]).map((e) => (
+            <Typography
+              key={e}
+              $variant="p-medium"
+              style={{ color: theme.colors.semantic.error }}
+            >
+              {e}
+            </Typography>
+          ))}
       </InputWrapper>
     );
-  }
+  },
 );

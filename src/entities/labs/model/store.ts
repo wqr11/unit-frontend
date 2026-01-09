@@ -5,12 +5,18 @@ import {
   createStore,
   sample,
 } from "effector";
-import { ILabTestResult, LabsApi, TestLabsParams, UpdateLabsParams } from "..";
+import {
+  CreateLabsParams,
+  ILabTestResult,
+  LabsApi,
+  TestLabsParams,
+  UpdateLabsParams,
+} from "..";
 import { notificationModel } from "@/entities/notifications";
 import { routerModel } from "@/entities/router";
 import { LabsSaved } from "./types";
 
-export const createLab = createEvent<void>();
+export const createLab = createEvent<Omit<CreateLabsParams, "subject_id">>();
 
 export const addLabTestResult = createEvent<ILabTestResult>();
 
@@ -24,10 +30,11 @@ export const getLabByIdFx = createEffect(async (id: string) => {
   return await LabsApi.getById(id);
 });
 
-export const createLabFx = createEffect(async (subjectId: string) => {
-  const createdLab = await LabsApi.create({ subjectId });
+export const createLabFx = createEffect(async (params: CreateLabsParams) => {
+  const { subject_id } = params;
+  const createdLab = await LabsApi.create(params);
 
-  return { subjectId, labs: [createdLab] };
+  return { subject_id, labs: [createdLab] };
 });
 
 export const updateLabFx = createEffect(async (params: UpdateLabsParams) => {
@@ -49,21 +56,10 @@ export const $labs = createStore<LabsSaved>({})
     ...state,
     [subjectId]: labs,
   }))
-  .on(createLabFx.doneData, (state, { labs, subjectId }) => ({
+  .on(createLabFx.doneData, (state, { labs, subject_id }) => ({
     ...state,
-    [subjectId]: [...state?.[subjectId], ...labs],
+    [subject_id]: [...state?.[subject_id], ...labs],
   }));
-// .on(updateLabFx.doneData, (state, changed) => {
-//   const oldLab = state.find((s) => s.id === changed.id)!;
-
-//   return [
-//     ...state.filter((s) => s.id !== changed.id),
-//     { ...oldLab, ...changed },
-//   ];
-// })
-// .on(deleteLabFx, (state, deletedId) =>
-//   state.filter((l) => l.id !== deletedId)
-// );
 
 export const $labsForCurrentSubject = combine(
   $labs,
@@ -81,11 +77,37 @@ export const $labsTestResults = createStore<ILabTestResult[]>([]).on(
   (state, data) => [...state.filter((d) => d.id !== data.id), data]
 );
 
+// updateLabFx and deleteLabFx logic
+sample({
+  clock: updateLabFx.doneData,
+  source: { subjectId: routerModel.$subjectId, labs: $labs },
+  filter: ({ subjectId }) => !!subjectId,
+  fn: ({ subjectId, labs }, newLab) => {
+    const subjectLabs = labs[subjectId!].map((lab) =>
+      lab.id === newLab.id ? { ...lab, ...newLab } : lab
+    );
+    return { ...labs, [subjectId!]: subjectLabs };
+  },
+  target: $labs,
+});
+
+sample({
+  clock: deleteLabFx,
+  source: { subjectId: routerModel.$subjectId, labs: $labs },
+  filter: ({ subjectId }) => !!subjectId,
+  fn: ({ subjectId, labs }, labId) => {
+    const newLabs = { ...labs };
+    newLabs[subjectId!] = newLabs[subjectId!].filter((lab) => lab.id !== labId);
+    return newLabs;
+  },
+  target: $labs,
+});
+
 sample({
   clock: createLab,
   source: routerModel.$subjectId,
   filter: (subjectId) => !!subjectId,
-  fn: (sId) => sId!,
+  fn: (sId, data) => ({ subject_id: sId!, ...data }),
   target: createLabFx,
 });
 

@@ -14,13 +14,17 @@ const router = createBrowserRouter([
         element: <SubjectsPageUI />,
       },
       {
-        path: ":subjectId",
+        path: "subject/:subjectId",
         index: false,
         element: <PageWithSidebarLayout />,
         children: [
           {
-            path: ":labId?",
+            path: "",
             index: true,
+            element: <LabsPage />,
+          },
+          {
+            path: ":labId",
             element: <LabsPage />,
           },
         ],

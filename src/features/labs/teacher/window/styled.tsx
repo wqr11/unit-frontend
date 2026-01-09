@@ -5,7 +5,7 @@ import { styled } from "styled-components";
 export const TeacherLabWindowFields = styled.div`
   display: grid;
   gap: 12px;
-  grid-template-areas: "input output" "comment comment";
+  grid-template-areas: "task task" "input output" "comment comment";
 `;
 
 export const TeacherLabWindowSubmit = styled(Button).attrs(({ children }) => ({

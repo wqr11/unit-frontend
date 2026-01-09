@@ -2,7 +2,7 @@ import { ILab, labsModel } from "@/entities/labs";
 import { sample } from "effector";
 import { createForm } from "effector-forms";
 
-export type TeacherLabWindowUpdateForm = ILab;
+export type TeacherLabWindowUpdateForm = Omitn<ILab, "subject_id">;
 
 export const $form = createForm<TeacherLabWindowUpdateForm>({
   fields: {
@@ -10,6 +10,9 @@ export const $form = createForm<TeacherLabWindowUpdateForm>({
       init: "",
     },
     name: {
+      init: "",
+    },
+    task: {
       init: "",
     },
     data_input: {

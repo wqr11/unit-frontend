@@ -18,26 +18,20 @@ export class LabsApi {
 
   static async list(subjectId: string) {
     const { data } = await $httpHost.get<GetLabsResult>(
-      `/subjects/labs/${subjectId}`,
+      `/subjects/labs/${subjectId}`
     );
     return data;
   }
 
-  static async create({ subjectId }: { subjectId: string }) {
-    const { data } = await $httpHost.post<CreateLabsResult>("/labs", {
-      name: "",
-      subject_id: subjectId,
-      data_input: "",
-      data_output: "",
-      comment_for_ai: "",
-    } satisfies CreateLabsParams);
+  static async create(params: CreateLabsParams) {
+    const { data } = await $httpHost.post<CreateLabsResult>("/labs", params);
     return data;
   }
 
   static async update({ id, ...params }: UpdateLabsParams) {
     const { data } = await $httpHost.patch<UpdateLabsResult>(
       `/labs/${id}`,
-      params,
+      params
     );
     return data;
   }

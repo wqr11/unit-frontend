@@ -5,7 +5,6 @@ export type GetLabByIdResult = ILab;
 export type GetLabsResult = ILab[];
 
 export type CreateLabsParams = Omit<ILab, "id">;
-
 export interface CreateLabsResult extends CreateLabsParams {
   id: string;
 }
@@ -35,6 +34,6 @@ export interface TestLabsResult {
       error: string;
       log: string;
       diff: string;
-    },
+    }
   ];
 }

@@ -3,8 +3,8 @@ import { Typography } from "@/shared/components/typography";
 import { styled } from "styled-components";
 
 export const SubjectCardStyled = styled(Button)`
-  width: clamp(100px, 300px, 80%);
-  height: 100px;
+  width: 260px;
+  height: 80px;
   padding: 20px;
   border-radius: 8px;
   outline: 1px solid ${({ theme }) => theme.colors.grayScale.gray2};

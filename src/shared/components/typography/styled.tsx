@@ -6,7 +6,7 @@ export interface TypographyProps {
 }
 
 export const Typography = styled.span<TypographyProps>`
-  ${({ $variant }) => {
+  ${({ $variant = "p-normal" }) => {
     let fontSize;
     let fontWeight;
 

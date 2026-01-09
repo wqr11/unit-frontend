@@ -5,6 +5,7 @@ import { Button } from "@/components/button";
 import { Typography } from "@/components/typography";
 
 export const TextareaWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;

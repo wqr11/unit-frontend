@@ -23,7 +23,7 @@ export const StudentLabWindow: React.FC<StudentLabWindowProps> = ({ lab }) => {
 
   const data = useMemo(
     () => labsResults.find((l) => l.id === lab?.id),
-    [labsResults, lab]
+    [labsResults, lab],
   );
 
   useLayoutEffect(() => {
@@ -36,9 +36,10 @@ export const StudentLabWindow: React.FC<StudentLabWindowProps> = ({ lab }) => {
 
   return (
     <LabWindowStyled>
-      <Typography $variant="p-medium">
-        Работа: {lab?.name ?? "<пусто>"}
+      <Typography $variant="h3-semibold">
+        {lab?.name ?? "<Без названия>"}
       </Typography>
+      <Typography $variant="p-medium">{lab?.task || "<пусто>"}</Typography>
       <StudentLabWindowFields>
         <Textarea
           placeholder="Код здесь"

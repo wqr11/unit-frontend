@@ -6,6 +6,7 @@ import {
   TextareaStyled,
   TextareaWrapper,
 } from "./styled";
+import { useTheme } from "styled-components";
 
 export interface TextareaProps {
   placeholder?: string;
@@ -16,6 +17,7 @@ export interface TextareaProps {
   onClear?: () => unknown;
   rows?: number;
   maxLength?: number;
+  error?: string | string[];
 }
 
 export const Textarea: React.FC<TextareaProps> = React.memo(
@@ -28,12 +30,15 @@ export const Textarea: React.FC<TextareaProps> = React.memo(
     onChange,
     rows = 3,
     maxLength,
+    error,
   }) => {
+    const theme = useTheme();
+
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleTextareaClick = useCallback(() => {
       textareaRef.current?.focus();
-    }, [textareaRef.current]);
+    }, []);
 
     return (
       <TextareaWrapper style={style}>
@@ -54,7 +59,16 @@ export const Textarea: React.FC<TextareaProps> = React.memo(
           />
           <TextareaCloseButton onClick={onClear} />
         </TextareaStyled>
+        {!!error &&
+          (Array.isArray(error) ? error : [error]).map((e) => (
+            <TextareaLabel
+              key={e}
+              style={{ color: theme.colors.semantic.error }}
+            >
+              {e}
+            </TextareaLabel>
+          ))}
       </TextareaWrapper>
     );
-  }
+  },
 );

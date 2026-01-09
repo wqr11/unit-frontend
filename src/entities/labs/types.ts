@@ -6,6 +6,7 @@ export interface ILab {
   subject_id: string;
   id: string;
   name: string;
+  task?: string;
   comment_for_ai: string;
 }
 

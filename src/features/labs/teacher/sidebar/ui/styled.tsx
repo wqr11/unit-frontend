@@ -26,7 +26,7 @@ export const TeacherSidebarAddLab = styled(Button).attrs(({ children }) => ({
   display: flex;
   justify-content: center;
   padding: 16px;
-  margin-bottom: 16px;
+  margin-block: 16px;
   background-color: ${({ theme }) => theme.colors.grayScale.bg};
   border-radius: 12px;
   border: 1px solid ${({ theme }) => theme.colors.grayScale.gray1};

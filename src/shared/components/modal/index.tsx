@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { CSSProperties, useCallback } from "react";
 import {
   ModalBackdrop,
   ModalCloseButton,
@@ -13,15 +13,15 @@ export interface ModalProps {
   children?: React.ReactNode;
   open?: boolean;
   closable?: boolean;
+  style?: CSSProperties;
   onClose?: () => unknown;
 }
 
 export const Modal: React.FC<ModalProps> = React.memo(
-  ({ title, children, open = true, closable = true, onClose }) => {
+  ({ title, children, open = true, closable = true, style, onClose }) => {
     const handleClose = useCallback(() => {
-      if (closable) {
-        onClose?.();
-      }
+      if (!closable) return;
+      onClose?.();
     }, [closable]);
 
     return (
@@ -29,7 +29,7 @@ export const Modal: React.FC<ModalProps> = React.memo(
         {open && (
           <ModalWrapperStyled>
             <ModalBackdrop onClick={handleClose} />
-            <ModalStyled>
+            <ModalStyled style={style}>
               <ModalTop>
                 <ModalTitle>{title}</ModalTitle>
                 {closable && <ModalCloseButton onClick={handleClose} />}

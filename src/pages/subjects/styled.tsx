@@ -1,3 +1,4 @@
+import { Button } from "@/shared/components/button";
 import { Typography } from "@/shared/components/typography";
 import { styled } from "styled-components";
 
@@ -20,16 +21,31 @@ export const SubjectsPageStyled = styled.div`
   padding: 20px;
 `;
 
+export const SubjectPageTop = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
 export const SubjectPageTitle = styled(Typography).attrs({
   $variant: "h2-semibold",
 })`
   margin-left: 16px;
 `;
 
+export const SubjectPageAddButton = styled(Button).attrs(({ children }) => ({
+  children: <Typography $variant="p-medium">{children}</Typography>,
+}))`
+  padding: 12px;
+  width: fit-content;
+  background-color: ${({ theme }) => theme.colors.grayScale.gray2};
+  outline: 1px solid ${({ theme }) => theme.colors.grayScale.gray3};
+`;
+
 export const SubjectPageList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, clamp(100px, 300px, 80vw));
-  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
   gap: 20px;
 `;

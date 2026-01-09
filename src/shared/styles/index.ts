@@ -6,6 +6,7 @@ export const GlobalStyles = createGlobalStyle`
         padding: 0;
         font-family: "Inter", sans-serif;
         color: ${({ theme }) => theme.colors.base.white};
+        box-sizing: border-box;
     };
     body {
         overflow: hidden;

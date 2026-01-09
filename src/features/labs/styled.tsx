@@ -5,7 +5,7 @@ export const LabWindowStyled = styled.div`
   grid-area: main;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
   padding: 24px 36px;
   border-radius: 12px;
   background-color: ${({ theme }) => theme.colors.base.white};
@@ -33,6 +33,12 @@ export const SidebarStyled = styled.div<{ $isTeacher?: boolean }>`
         grid-template-columns: 100%;
       }
     `}
+`;
+
+export const SidebarHeading = styled(Typography).attrs({
+  $variant: "p-medium",
+})`
+  margin-left: 12px;
 `;
 
 export const SidebarScrollbar = styled.div`
