@@ -35,8 +35,6 @@ const formatFieldsFx = createEffect<SignUpFormType, SignUpFormType, Error>(
   }
 );
 
-formatFieldsFx.watch((d) => console.log(d, "ASDSAD"));
-
 sample({
   clock: submit,
   source: {
