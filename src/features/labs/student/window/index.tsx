@@ -1,3 +1,6 @@
+import { useForm } from "effector-forms";
+import { useUnit } from "effector-react";
+import { useLayoutEffect, useMemo } from "react";
 import { Textarea } from "@/components/fields/textarea";
 import { Typography } from "@/components/typography";
 import { LabWindowStyled } from "../../styled";
@@ -7,23 +10,21 @@ import {
   StudentLabWindowTestButton,
 } from "./styled";
 import { ILab, LogOutput, labsModel } from "@/entities/labs";
-import { $form } from "./model";
-import { useForm } from "effector-forms";
-import { useUnit } from "effector-react";
-import { useLayoutEffect, useMemo } from "react";
+import * as studentWindowModel from "./model";
 
 export interface StudentLabWindowProps {
   lab?: ILab;
 }
 
 export const StudentLabWindow: React.FC<StudentLabWindowProps> = ({ lab }) => {
-  const form = useForm($form);
+  const form = useForm(studentWindowModel.$form);
+  const testSend = useUnit(studentWindowModel.testSend);
 
   const labsResults = useUnit(labsModel.$labsTestResults);
 
   const data = useMemo(
     () => labsResults.find((l) => l.id === lab?.id),
-    [labsResults, lab],
+    [labsResults, lab]
   );
 
   useLayoutEffect(() => {
@@ -55,7 +56,9 @@ export const StudentLabWindow: React.FC<StudentLabWindowProps> = ({ lab }) => {
         <StudentLabWindowTestButton onClick={() => form.submit()}>
           Тест
         </StudentLabWindowTestButton>
-        <StudentLabWindowTestButton>Подтвердить</StudentLabWindowTestButton>
+        <StudentLabWindowTestButton onClick={testSend}>
+          Подтвердить
+        </StudentLabWindowTestButton>
       </StudentLabWindowButtons>
     </LabWindowStyled>
   );

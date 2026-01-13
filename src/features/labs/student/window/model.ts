@@ -1,11 +1,14 @@
 import { labsModel } from "@/entities/labs";
-import { sample } from "effector";
+import { createEvent, sample } from "effector";
 import { createForm } from "effector-forms";
 
 export type StudentLabWindowUpdateForm = {
   id: string;
   student_code: string;
 };
+
+/* Send an email to the teacher */
+export const testSend = createEvent<void>();
 
 export const $form = createForm<StudentLabWindowUpdateForm>({
   fields: {
@@ -21,5 +24,11 @@ export const $form = createForm<StudentLabWindowUpdateForm>({
 sample({
   clock: $form.submit,
   source: $form.$values,
-  target: labsModel.testLabsFx,
+  target: labsModel.testLabFx,
+});
+
+sample({
+  clock: testSend,
+  source: $form.$values,
+  target: labsModel.testSendFx,
 });

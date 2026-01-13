@@ -6,7 +6,7 @@ export const createSubjectFx = createEffect(
   async (params: SubjectCreateParams) => {
     const { data } = await SubjectApi.create(params);
     return data;
-  },
+  }
 );
 
 export const getSubjectsFx = createEffect(async () => {
@@ -21,5 +21,5 @@ export const $subjects = createStore<Subject[]>([])
 export const $subject = combine(
   $subjects,
   routerModel.$subjectId,
-  (subs, subId) => subs.find((sub) => sub.id === subId),
+  (subs, subId) => subs.find((sub) => sub.id === subId) || {}
 );

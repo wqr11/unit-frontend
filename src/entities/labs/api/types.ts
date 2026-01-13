@@ -37,3 +37,7 @@ export interface TestLabsResult {
     }
   ];
 }
+
+export interface TestSendLabsResult extends TestLabsResult {
+  email_delivered?: boolean;
+}

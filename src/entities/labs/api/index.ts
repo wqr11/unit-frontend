@@ -6,6 +6,7 @@ import {
   GetLabsResult,
   TestLabsParams,
   TestLabsResult,
+  TestSendLabsResult,
   UpdateLabsParams,
   UpdateLabsResult,
 } from "./types";
@@ -43,11 +44,24 @@ export class LabsApi {
 
   static async test({ id, ...params }: TestLabsParams) {
     const { data } = await $httpHost.post<TestLabsResult>(`/labs/${id}/test`, {
-      ...params,
       name: "",
       surname: "",
       group: "",
+      ...params,
     });
+    return data;
+  }
+
+  static async submit({ id, ...params }: TestLabsParams) {
+    const { data } = await $httpHost.post<TestSendLabsResult>(
+      `/labs/${id}/test-send`,
+      {
+        name: "",
+        surname: "",
+        group: "",
+        ...params,
+      }
+    );
     return data;
   }
 }

@@ -10,6 +10,7 @@ import {
   ILabTestResult,
   LabsApi,
   TestLabsParams,
+  TestSendLabsResult,
   UpdateLabsParams,
 } from "..";
 import { notificationModel } from "@/entities/notifications";
@@ -45,8 +46,12 @@ export const deleteLabFx = createEffect(async (id: string) => {
   return await LabsApi.delete(id);
 });
 
-export const testLabsFx = createEffect(async (params: TestLabsParams) => {
+export const testLabFx = createEffect(async (params: TestLabsParams) => {
   return await LabsApi.test(params);
+});
+
+export const testSendFx = createEffect(async (params: TestLabsParams) => {
+  return await LabsApi.submit(params);
 });
 
 /* @TODO: ADD PAGINATION LATER! */
@@ -58,7 +63,7 @@ export const $labs = createStore<LabsSaved>({})
   }))
   .on(createLabFx.doneData, (state, { labs, subject_id }) => ({
     ...state,
-    [subject_id]: [...state?.[subject_id], ...labs],
+    [subject_id]: [...(state?.[subject_id] || []), ...labs],
   }));
 
 export const $labsForCurrentSubject = combine(
@@ -68,7 +73,7 @@ export const $labsForCurrentSubject = combine(
 );
 
 export const $lastTestedLabId = createStore<string | null>(null).on(
-  testLabsFx,
+  [testLabFx, testSendFx],
   (_, data) => data.id
 );
 
@@ -120,9 +125,24 @@ sample({
 });
 
 sample({
-  clock: testLabsFx.doneData,
+  clock: [testLabFx.doneData, testSendFx.doneData],
   source: $lastTestedLabId,
   filter: (id) => !!id,
   fn: (id, data) => ({ id: id!, ...data }),
   target: addLabTestResult,
+});
+
+sample({
+  clock: testSendFx.doneData,
+  target: notificationModel.notify.prepend((data: TestSendLabsResult) =>
+    data?.email_delivered
+      ? {
+          title: "Доставлено",
+          text: "Преподаватель получит email",
+        }
+      : {
+          title: "Ошибка",
+          text: "Преподаватель не получит email-письма",
+        }
+  ),
 });

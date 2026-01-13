@@ -87,7 +87,7 @@ export const $user = createStore<IUser | null>(null)
   .on(getMeFx.doneData, (_, data) => data)
   .reset(getMeFx.fail);
 
-export const $isAuth = combine($user, (user) => !!user);
+export const $isAuth = combine($user, (user) => !!user || false);
 
 sample({
   clock: signUpFx.doneData,
