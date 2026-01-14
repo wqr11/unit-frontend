@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useCallback, useEffect } from "react";
+import React, { PropsWithChildren, useCallback } from "react";
 import { CheckboxLabel, CheckboxInput, CheckboxWrapper } from "./styled";
 
 export interface CheckboxProps extends PropsWithChildren {
@@ -27,7 +27,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   return (
     <CheckboxWrapper>
       <CheckboxLabel>{children}</CheckboxLabel>
-      <CheckboxInput $disabled onInput={handleInput} checked={checked}/>
+      <CheckboxInput
+        $disabled={$disabled}
+        onInput={handleInput}
+        checked={checked}
+      />
     </CheckboxWrapper>
   );
 };

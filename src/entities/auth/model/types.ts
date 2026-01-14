@@ -5,7 +5,7 @@ export interface SignUpFxParams {
   password: string;
 }
 
-export type LoginFxParams = Omit<SignUpFxParams, "name">;
+export type LoginFxParams = Omit<SignUpFxParams, "name" | "is_teacher">;
 
 export type LoginFxResult = {
   access_token: string;

@@ -6,7 +6,7 @@ import {
   split,
   createEvent,
 } from "effector";
-import { AxiosError } from "axios";
+import { AxiosError, isAxiosError } from "axios";
 import { AuthApi } from "..";
 import { IUser, LoginFxParams, LoginFxResult, SignUpFxParams } from "./types";
 import { CookieUtils } from "@/shared/utils/cookie";
@@ -118,8 +118,10 @@ sample({
 split({
   source: signUpFx.failData,
   match: {
-    USER_ALREADY_EXISTS: (err: AxiosError) => err.status === 409,
-    INTERNAL_SERVER_ERROR: (err: AxiosError) => err.status === 500,
+    USER_ALREADY_EXISTS: (err: Error) =>
+      isAxiosError(err) && err.status === 409,
+    INTERNAL_SERVER_ERROR: (err: Error) =>
+      isAxiosError(err) && err.status === 500,
   },
   cases: {
     USER_ALREADY_EXISTS: notificationModel.notify.prepend(() => ({
@@ -136,9 +138,9 @@ split({
 split({
   source: loginFx.failData,
   match: {
-    WRONG_PASSWORD: (err: AxiosError) => err.status === 401,
-    USER_NOT_FOUND: (err: AxiosError) => err.status === 404,
-    JWT_SIGN_FAILURE: (err: AxiosError) => err.status === 400,
+    WRONG_PASSWORD: (err: Error) => isAxiosError(err) && err.status === 401,
+    USER_NOT_FOUND: (err: Error) => isAxiosError(err) && err.status === 404,
+    JWT_SIGN_FAILURE: (err: Error) => isAxiosError(err) && err.status === 400,
   },
   cases: {
     WRONG_PASSWORD: notificationModel.notify.prepend(() => ({

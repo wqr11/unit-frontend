@@ -9,7 +9,9 @@ export interface CreateLabsResult extends CreateLabsParams {
   id: string;
 }
 
-export type UpdateLabsParams = ILab;
+export type UpdateLabsParams = Partial<Omit<ILab, "subject_id">> & {
+  id: string;
+};
 export type UpdateLabsResult = ILab;
 
 export interface TestLabsParams {
