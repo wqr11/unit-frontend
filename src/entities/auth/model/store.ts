@@ -15,12 +15,6 @@ import { notificationModel } from "@/entities/notifications";
 export const setAccessToken = createEvent<string | null>();
 export const setRefreshToken = createEvent<string | null>();
 
-export const setTokensFromCookies = createEffect(
-  (params: { access: string; refresh: string }) => {
-    CookieUtils.saveTokenCookies(params);
-  }
-);
-
 export const getTokensFromCookies = createEffect(() => {
   const { access, refresh } = CookieUtils.getTokensFromCookies();
 
@@ -100,13 +94,6 @@ sample({
 sample({
   clock: loginFx.doneData,
   target: getMeFx,
-});
-
-sample({
-  source: $authTokens,
-  filter: ({ access, refresh }) => !!access && !!refresh,
-  fn: ({ access, refresh }) => ({ access: access!, refresh: refresh! }),
-  target: setTokensFromCookies,
 });
 
 sample({

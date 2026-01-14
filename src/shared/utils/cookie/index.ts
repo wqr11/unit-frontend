@@ -1,8 +1,4 @@
-import {
-  ACCESS_TOKEN_COOKIE,
-  PROD_URL,
-  REFRESH_TOKEN_COOKIE,
-} from "@/shared/config";
+import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/shared/config";
 import Cookie from "js-cookie";
 
 export class CookieUtils {
@@ -14,25 +10,5 @@ export class CookieUtils {
   static deleteTokenCookies() {
     Cookie.remove(ACCESS_TOKEN_COOKIE);
     Cookie.remove(REFRESH_TOKEN_COOKIE);
-  }
-  static saveTokenCookies({
-    access,
-    refresh,
-  }: {
-    access: string;
-    refresh: string;
-  }) {
-    Cookie.set(ACCESS_TOKEN_COOKIE, access, {
-      expires: new Date(Date.now() + 60 * 60 * 1000),
-      sameSite: "None",
-      secure: true,
-      domain: PROD_URL,
-    });
-    Cookie.set(REFRESH_TOKEN_COOKIE, refresh, {
-      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      sameSite: "None",
-      secure: true,
-      domain: PROD_URL,
-    });
   }
 }
