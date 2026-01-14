@@ -7,8 +7,4 @@ export class CookieUtils {
     const refresh = Cookie.get(REFRESH_TOKEN_COOKIE);
     return { access, refresh };
   }
-  static deleteTokenCookies() {
-    Cookie.remove(ACCESS_TOKEN_COOKIE);
-    Cookie.remove(REFRESH_TOKEN_COOKIE);
-  }
 }

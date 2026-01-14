@@ -55,7 +55,7 @@ export const refreshFx = createEffect<void, void>(async () => {
 });
 
 export const signOutFx = createEffect(async () => {
-  CookieUtils.deleteTokenCookies();
+  await AuthApi.logout();
   document.location.href = "/";
 });
 
