@@ -18,7 +18,7 @@ export class AuthApi {
   }
 
   static async logout() {
-    return await $httpHost.post("/logout");
+    return await $httpHost.get("/logout");
   }
 
   static async refresh() {

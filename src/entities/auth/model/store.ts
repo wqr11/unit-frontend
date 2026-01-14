@@ -55,7 +55,9 @@ export const refreshFx = createEffect<void, void>(async () => {
 });
 
 export const signOutFx = createEffect(async () => {
-  await AuthApi.logout();
+  AuthApi.logout().then(() => {
+    document.location.reload();
+  });
 });
 
 export const $accessToken = createStore<string | null>(null)
