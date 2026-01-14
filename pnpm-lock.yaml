@@ -35,9 +35,6 @@ importers:
       react-router:
         specifier: ^7.5.0
         version: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      reconnecting-websocket:
-        specifier: ^4.4.0
-        version: 4.4.0
       styled-components:
         specifier: ^6.1.17
         version: 6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -57,6 +54,9 @@ importers:
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
+      '@types/node':
+        specifier: ^25.0.8
+        version: 25.0.8
       '@types/react':
         specifier: ^19.0.10
         version: 19.2.2
@@ -68,7 +68,7 @@ importers:
         version: 5.1.35
       '@vitejs/plugin-react-swc':
         specifier: ^3.8.0
-        version: 3.11.0(vite@6.4.1(@types/node@24.9.1)(lightningcss@1.30.2))
+        version: 3.11.0(vite@6.4.1(@types/node@25.0.8)(lightningcss@1.30.2))
       eslint:
         specifier: ^9.21.0
         version: 9.38.0
@@ -89,10 +89,10 @@ importers:
         version: 8.46.2(eslint@9.38.0)(typescript@5.7.3)
       vite:
         specifier: ^6.2.0
-        version: 6.4.1(@types/node@24.9.1)(lightningcss@1.30.2)
+        version: 6.4.1(@types/node@25.0.8)(lightningcss@1.30.2)
       vite-tsconfig-paths:
         specifier: ^5.1.4
-        version: 5.1.4(typescript@5.7.3)(vite@6.4.1(@types/node@24.9.1)(lightningcss@1.30.2))
+        version: 5.1.4(typescript@5.7.3)(vite@6.4.1(@types/node@25.0.8)(lightningcss@1.30.2))
 
 packages:
 
@@ -532,8 +532,8 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/node@24.9.1':
-    resolution: {integrity: sha512-QoiaXANRkSXK6p0Duvt56W208du4P9Uye9hWLWgGMDTEoKPhuenzNcC4vGUmrNkiOKTlIrBoyNQYNpSwfEZXSg==}
+  '@types/node@25.0.8':
+    resolution: {integrity: sha512-powIePYMmC3ibL0UJ2i2s0WIbq6cg6UyVFQxSCpaPxxzAaziRfimGivjdF943sSGV6RADVbk0Nvlm5P/FB44Zg==}
 
   '@types/react-dom@19.2.2':
     resolution: {integrity: sha512-9KQPoO6mZCi7jcIStSnlOWn2nEF3mNmyr3rIAsGnAbQKYbRLyqmeSc39EVgtxXVia+LMT8j3knZLAZAh+xLmrw==}
@@ -1193,9 +1193,6 @@ packages:
     resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
     engines: {node: '>=0.10.0'}
 
-  reconnecting-websocket@4.4.0:
-    resolution: {integrity: sha512-D2E33ceRPga0NvTDhJmphEgJ7FUYF0v4lr1ki0csq06OdlxKfugGzN0dSkxM/NfqCxYELK4KcaTOUOjTV6Dcng==}
-
   resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
@@ -1664,10 +1661,9 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/node@24.9.1':
+  '@types/node@25.0.8':
     dependencies:
       undici-types: 7.16.0
-    optional: true
 
   '@types/react-dom@19.2.2(@types/react@19.2.2)':
     dependencies:
@@ -1778,11 +1774,11 @@ snapshots:
       '@typescript-eslint/types': 8.46.2
       eslint-visitor-keys: 4.2.1
 
-  '@vitejs/plugin-react-swc@3.11.0(vite@6.4.1(@types/node@24.9.1)(lightningcss@1.30.2))':
+  '@vitejs/plugin-react-swc@3.11.0(vite@6.4.1(@types/node@25.0.8)(lightningcss@1.30.2))':
     dependencies:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@swc/core': 1.13.5
-      vite: 6.4.1(@types/node@24.9.1)(lightningcss@1.30.2)
+      vite: 6.4.1(@types/node@25.0.8)(lightningcss@1.30.2)
     transitivePeerDependencies:
       - '@swc/helpers'
 
@@ -2334,8 +2330,6 @@ snapshots:
 
   react@19.2.0: {}
 
-  reconnecting-websocket@4.4.0: {}
-
   resolve-from@4.0.0: {}
 
   reusify@1.1.0: {}
@@ -2446,8 +2440,7 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  undici-types@7.16.0:
-    optional: true
+  undici-types@7.16.0: {}
 
   uri-js@4.4.1:
     dependencies:
@@ -2457,18 +2450,18 @@ snapshots:
     dependencies:
       react: 19.2.0
 
-  vite-tsconfig-paths@5.1.4(typescript@5.7.3)(vite@6.4.1(@types/node@24.9.1)(lightningcss@1.30.2)):
+  vite-tsconfig-paths@5.1.4(typescript@5.7.3)(vite@6.4.1(@types/node@25.0.8)(lightningcss@1.30.2)):
     dependencies:
       debug: 4.4.3
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@5.7.3)
     optionalDependencies:
-      vite: 6.4.1(@types/node@24.9.1)(lightningcss@1.30.2)
+      vite: 6.4.1(@types/node@25.0.8)(lightningcss@1.30.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@6.4.1(@types/node@24.9.1)(lightningcss@1.30.2):
+  vite@6.4.1(@types/node@25.0.8)(lightningcss@1.30.2):
     dependencies:
       esbuild: 0.25.11
       fdir: 6.5.0(picomatch@4.0.3)
@@ -2477,7 +2470,7 @@ snapshots:
       rollup: 4.52.5
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 24.9.1
+      '@types/node': 25.0.8
       fsevents: 2.3.3
       lightningcss: 1.30.2
 
