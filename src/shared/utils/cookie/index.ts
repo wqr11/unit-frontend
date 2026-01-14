@@ -20,11 +20,13 @@ export class CookieUtils {
   }) {
     Cookie.set(ACCESS_TOKEN_COOKIE, access, {
       expires: new Date(Date.now() + 60 * 60 * 1000),
-      sameSite: "lax",
+      sameSite: "None",
+      secure: true,
     });
     Cookie.set(REFRESH_TOKEN_COOKIE, refresh, {
       expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      sameSite: "lax",
+      sameSite: "None",
+      secure: true,
     });
   }
 }
